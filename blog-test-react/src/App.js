@@ -7,7 +7,6 @@ const App = () => {
     <div className="App">
       <div className="content">
         <Navbar />
-        <h1>React Component</h1>
         <Home />
       </div>
     </div>

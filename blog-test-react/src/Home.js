@@ -15,6 +15,7 @@ const Home = () => {
 
     const [name, setName] = useState("Ioohn");
     const [isPending, setIsPending] = useState(true);
+    const [error, setError] = useState("");
 
     // const deleteHandler = (id) => {
     //     const restblogs = blogs.filter((blog) => blog.id !== id);
@@ -25,16 +26,25 @@ const Home = () => {
     useEffect(() => {
         fetch("http://localhost:5000/blogs")
             .then((response) => {
+                if(!response.ok){
+                    throw Error("Cannot fetch data");
+                }
                 response.json()
                     .then(data => {
                         setBlogs(data);
                         setIsPending(false);
+                        setError("");
                     })
+            })
+            .catch(error => {
+                setIsPending(false);
+                setError(error.message);
             })
     });
 
     return (
         <div className="home">
+            { error && <div>{error}</div> }
             {isPending && <div>Loading...</div>}
             {blogs && <BlogList blogs={blogs} title="All Blogs" /**deleteHandler={deleteHandler}**/ />}
             {blogs && <BlogList blogs={blogs.filter((blog) => blog.author === "Lori")} title="Books By Author 1" />}

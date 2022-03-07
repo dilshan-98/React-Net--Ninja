@@ -14,6 +14,7 @@ const Home = () => {
     const [blogs, setBlogs] = useState("");
 
     const [name, setName] = useState("Ioohn");
+    const [isPending, setIsPending] = useState(true);
 
     // const deleteHandler = (id) => {
     //     const restblogs = blogs.filter((blog) => blog.id !== id);
@@ -27,12 +28,14 @@ const Home = () => {
                 response.json()
                     .then(data => {
                         setBlogs(data);
+                        setIsPending(false);
                     })
             })
     });
 
     return (
         <div className="home">
+            {isPending && <div>Loading...</div>}
             {blogs && <BlogList blogs={blogs} title="All Blogs" /**deleteHandler={deleteHandler}**/ />}
             {blogs && <BlogList blogs={blogs.filter((blog) => blog.author === "Lori")} title="Books By Author 1" />}
             {/**<button onClick={() => setName("Carter")}>Click me</button>**/}

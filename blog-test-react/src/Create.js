@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Create = () => {
 
@@ -7,6 +8,7 @@ const Create = () => {
     const [author, setAuthor] = useState("James");
     const [isPending, setIsPending] = useState(false);
     const [error, setError] = useState("");
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -24,6 +26,8 @@ const Create = () => {
         }).then(() => {
             setIsPending(false);
             console.log("New Blog Added");
+            //navigate(-1); to move to the previous page
+            navigate("/");
         }).catch(error => {
             setError(error);
         })

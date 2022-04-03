@@ -1,4 +1,5 @@
 import useFetch from "./useFetch";
+import BlogList from "./BlogList";
 
 const Home = () => {
     // const [blogs, setBlogs] = useState([
@@ -24,15 +25,10 @@ const Home = () => {
 
     return (
         <div className="home">
-            <h2>All Blogs</h2>
             {error && <div>{error}</div>}
             {isPending && <div>Loading...</div>}
-            {blogs && blogs.map((blog) => (
-                <div className="blog-preview">
-                    <h2>{blog.title}</h2>
-                    <p>{blog.body}</p>
-                </div>
-            ))}
+            {blogs && <BlogList blogs={blogs} title="All Blogs"/>}
+            {blogs && <BlogList blogs={blogs.filter((blog) => blog.author === "Lori")} title="Blogs by Lori"/>}
         </div>
     );
 }
